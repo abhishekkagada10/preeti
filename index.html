@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Card for Preeti</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    overflow:hidden;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:420px;
+    perspective:2000px;
+}
+
+.card{
+    width:100%;
+    min-height:560px;
+    position:relative;
+}
+
+.cover{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(15px);
+    border-radius:25px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.35);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    color:white;
+    cursor:pointer;
+    transition:1s;
+    z-index:2;
+    padding:20px;
+}
+
+.cover.open{
+    transform:translateY(-120%);
+    opacity:0;
+}
+
+.cover h1{
+    font-size:2rem;
+    text-align:center;
+    animation:float 2s infinite ease-in-out;
+}
+
+.cover p{
+    margin-top:15px;
+    opacity:0.8;
+    text-align:center;
+}
+
+.letter{
+    width:100%;
+    min-height:560px;
+    background:white;
+    border-radius:25px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
+    opacity:0;
+    transform:translateY(40px);
+    transition:1s;
+}
+
+.letter.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.name{
+    font-size:2rem;
+    color:#ff4b7d;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.typing{
+    color:#444;
+    line-height:1.8;
+    font-size:1rem;
+    min-height:120px;
+}
+
+.spotify{
+    margin-top:20px;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+button{
+    margin-top:20px;
+    padding:12px 25px;
+    border:none;
+    border-radius:25px;
+    background:#111;
+    color:white;
+    cursor:pointer;
+    font-size:1rem;
+}
+
+#extra{
+    margin-top:15px;
+    color:#555;
+    font-size:0.95rem;
+}
+
+.light{
+    position:absolute;
+    width:10px;
+    height:10px;
+    background:rgba(255,255,255,0.5);
+    border-radius:50%;
+    animation:move 8s linear infinite;
+}
+
+@keyframes move{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-100vh);}
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-8px);}
+}
+
+@media(max-width:500px){
+    .cover h1{
+        font-size:1.6rem;
+    }
+
+    .name{
+        font-size:1.7rem;
+    }
+
+    .typing{
+        font-size:0.95rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+
+        <div class="cover" id="cover" onclick="openLetter()">
+            <h1>🎂 Happy Birthday Preeti</h1>
+            <p>Tap to open your special letter ✨</p>
+        </div>
+
+        <div class="letter" id="letter">
+            <div class="name">Preeti 🌷</div>
+
+            <div class="typing" id="typing"></div>
+
+            <div class="spotify">
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7eQl3Yqv35ioqUfveKHitE?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+
+            <button onclick="specialWish(event)">Final Wish</button>
+            <p id="extra"></p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+const text = "Happy Birthday! Wishing you a beautiful day filled with peace, happiness, and memorable moments. May this year bring success, positivity, and many reasons to smile. Stay blessed and may everything ahead unfold beautifully for you ✨";
+let i=0;
+
+function typeWriter(){
+    if(i < text.length){
+        document.getElementById("typing").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter,35);
+    }
+}
+
+function openLetter(){
+    document.getElementById('cover').classList.add('open');
+    document.getElementById('letter').classList.add('show');
+    if(i===0) typeWriter();
+}
+
+function specialWish(event){
+    event.stopPropagation();
+    document.getElementById('extra').innerHTML =
+    "May today stay gentle, happy, and unforgettable for you 🌸";
+}
+
+for(let j=0;j<35;j++){
+    let light=document.createElement('div');
+    light.classList.add('light');
+    light.style.left=Math.random()*100+'vw';
+    light.style.animationDuration=(Math.random()*5+4)+'s';
+    light.style.width=light.style.height=(Math.random()*10+5)+'px';
+    document.body.appendChild(light);
+}
+</script>
+
+</body>
+</html>
